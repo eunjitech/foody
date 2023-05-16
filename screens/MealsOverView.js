@@ -1,0 +1,33 @@
+import React from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import MealItem from "../components/MealItem";
+import { MEALS } from "../data/dummy-data";
+
+export default function MealsOverView({ route }) {
+  //navigation을 인자로 받아 제공받는 프로퍼티
+  const {
+    params: { categoryId },
+  } = route;
+
+  const displayMeal = MEALS.filter((item) => {
+    return item.categoryIds.indexOf(categoryId) >= 0;
+  });
+
+  function renderItem({ item }) {
+    return <MealItem title={item.title} />;
+  }
+
+  return (
+    <View style={styles.mealContainer}>
+      <FlatList
+        data={displayMeal}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  mealContainer: { padding: 16 },
+});

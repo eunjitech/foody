@@ -10,11 +10,17 @@ import {
   Platform,
 } from "react-native";
 import Constants from "expo-constants";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import { CATEGORIES, MEALS } from "./data/dummy-data";
 import CategoriesScreen from "./screens/CategoriesScreen";
+import MealsOverView from "./screens/MealsOverView";
 
 export default function App() {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
+
+  const Stack = createStackNavigator();
 
   useEffect(() => {
     setStatusBarHeight(Constants.statusBarHeight);
@@ -33,15 +39,20 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <SafeAreaView style={styles.container}>
-        {/* <FlatList
-          data={CATEGORIES}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.itemsContainer}
-        /> */}
-        <CategoriesScreen />
-      </SafeAreaView>
+
+      <NavigationContainer>
+        <SafeAreaView style={{ flex: 1 }}>
+          <Stack.Navigator initialRouteName="MealCategory">
+            <Stack.Screen
+              name="MealCategory"
+              component={CategoriesScreen}
+              initial
+              screen
+            />
+            <Stack.Screen name="MealOverView" component={MealsOverView} />
+          </Stack.Navigator>
+        </SafeAreaView>
+      </NavigationContainer>
     </>
   );
 }
