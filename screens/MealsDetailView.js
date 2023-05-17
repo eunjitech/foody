@@ -13,6 +13,7 @@ import { MEALS } from "../data/dummy-data";
 import MealDetail from "../components/MealDetail";
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
+import IconButton from "../components/IconButton";
 
 export default function MealsDetailView({ route, navigation }) {
   const {
@@ -28,7 +29,13 @@ export default function MealsDetailView({ route, navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        return <Button title="ㅋㅋ" onPress={headerButtonPressHandler} />;
+        return (
+          <IconButton
+            icon="star-outline"
+            color="#000"
+            onPress={headerButtonPressHandler}
+          />
+        );
       },
     });
   }, [headerButtonPressHandler, navigation]);
