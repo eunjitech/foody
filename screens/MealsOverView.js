@@ -14,7 +14,14 @@ export default function MealsOverView({ route }) {
   });
 
   function renderItem({ item }) {
-    return <MealItem title={item.title} />;
+    const mealItemProps = {
+      title: item.title,
+      imageUrl: item.imageUrl,
+      duration: item.duration,
+      complexity: item.complexity,
+      affordability: item.affordability,
+    };
+    return <MealItem {...mealItemProps} />;
   }
 
   return (
