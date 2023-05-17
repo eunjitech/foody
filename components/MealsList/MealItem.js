@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import MealDetail from "./MealDetail";
+import MealDetail from "../MealDetail";
 
 export default function MealItem({
   categoryId,

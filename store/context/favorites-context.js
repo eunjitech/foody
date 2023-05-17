@@ -6,24 +6,23 @@ export const FavoritesContext = createContext({
   removeFavorite: (id) => {},
 });
 
-export default function FavoritesContextProvider({ children }) {
-  //context 관리에 필요한 모든 로직이 포함
-  const [favoriteMealIds, setFavoritesMealIds] = useState([]);
+function FavoritesContextProvider({ children }) {
+  const [favoriteMealIds, setFavoriteMealIds] = useState([]);
 
   function addFavorite(id) {
-    setFavoritesMealIds((currentFavIds) => [...currentFavIds, id]);
+    setFavoriteMealIds((currentFavIds) => [...currentFavIds, id]);
   }
 
   function removeFavorite(id) {
-    setFavoritesMealIds((currentFavIds) =>
+    setFavoriteMealIds((currentFavIds) =>
       currentFavIds.filter((mealId) => mealId !== id)
     );
   }
 
   const value = {
     ids: favoriteMealIds,
-    addFavorite,
-    removeFavorite,
+    addFavorite: addFavorite,
+    removeFavorite: removeFavorite,
   };
 
   return (
@@ -32,3 +31,5 @@ export default function FavoritesContextProvider({ children }) {
     </FavoritesContext.Provider>
   );
 }
+
+export default FavoritesContextProvider;

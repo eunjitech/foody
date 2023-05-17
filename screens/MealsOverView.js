@@ -1,7 +1,8 @@
 import React, { useLayoutEffect } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import MealItem from "../components/MealItem";
+import MealItem from "../components/MealsList/MealItem";
 import { MEALS, CATEGORIES } from "../data/dummy-data";
+import MealsList from "../components/MealsList/MealsList";
 
 export default function MealsOverView({ route, navigation }) {
   //navigation을 인자로 받아 제공받는 프로퍼티
@@ -23,29 +24,7 @@ export default function MealsOverView({ route, navigation }) {
     });
   }, [navigation, categoryId]);
 
-  function renderItem({ item }) {
-    const mealItemProps = {
-      categoryId: item.categoryId,
-      title: item.title,
-      imageUrl: item.imageUrl,
-      duration: item.duration,
-      complexity: item.complexity,
-      affordability: item.affordability,
-    };
-    return <MealItem {...mealItemProps} />;
-  }
-
-  return (
-    <View style={styles.mealContainer}>
-      <FlatList
-        data={displayMeal}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </View>
-  );
+  return <MealsList items={displayMeal} />;
 }
 
-const styles = StyleSheet.create({
-  mealContainer: { padding: 16 },
-});
+const styles = StyleSheet.create({});

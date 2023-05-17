@@ -25,7 +25,9 @@ export default function MealsDetailView({ route, navigation }) {
     params: { categoryId },
   } = route;
 
-  const selectMeal = MEALS.find((item) => item.categoryId === categoryId);
+  console.log("route", route);
+
+  const selectMeal = MEALS.find((item) => item.id === categoryId);
 
   const mealIsFavorite = mealsContext.ids.includes(categoryId);
 
