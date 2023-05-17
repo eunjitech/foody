@@ -14,17 +14,44 @@ import Constants from "expo-constants";
 import { NavigationContainer } from "@react-navigation/native";
 // import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import { CATEGORIES, MEALS } from "./data/dummy-data";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverView from "./screens/MealsOverView";
 import MealsDetailView from "./screens/MealsDetailView";
+import FavoriteScreen from "./screens/FavoriteScreen";
 
 export default function App() {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
 
   // const Stack = createStackNavigator();
   const Stack = createNativeStackNavigator();
+  const Drawer = createDrawerNavigator();
+
+  function DrawerNavigator() {
+    return (
+      <Drawer.Navigator
+        screenOptions={{
+          sceneContainerStyle: {
+            backgroundColor: "#e98f93",
+          },
+          headerStyle: {
+            backgroundColor: "#f1bcbe",
+          },
+        }}
+      >
+        <Drawer.Screen
+          name="Categories"
+          component={CategoriesScreen}
+          options={{
+            title: "All Categories",
+          }}
+        />
+        <Drawer.Screen name="FavoriteScreen" component={FavoriteScreen} />
+      </Drawer.Navigator>
+    );
+  }
 
   useEffect(() => {
     setStatusBarHeight(Constants.statusBarHeight);
@@ -58,10 +85,10 @@ export default function App() {
           >
             <Stack.Screen
               name="MealCategory"
-              component={CategoriesScreen}
+              component={DrawerNavigator}
               options={{
-                title: "All Categories",
                 headerTintColor: "#222",
+                headerShown: false,
                 // headerBackTitle: "All Categories", not working
               }}
               initial
