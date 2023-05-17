@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import MealItem from "../components/MealItem";
-import { MEALS } from "../data/dummy-data";
+import { MEALS, CATEGORIES } from "../data/dummy-data";
 
-export default function MealsOverView({ route }) {
+export default function MealsOverView({ route, navigation }) {
   //navigation을 인자로 받아 제공받는 프로퍼티
   const {
     params: { categoryId },
@@ -12,6 +12,16 @@ export default function MealsOverView({ route }) {
   const displayMeal = MEALS.filter((item) => {
     return item.categoryIds.indexOf(categoryId) >= 0;
   });
+
+  useLayoutEffect(() => {
+    const title = CATEGORIES.filter((item) => {
+      return item.id === categoryId;
+    }).title;
+
+    navigation.setOptions({
+      title: title,
+    });
+  }, [navigation, categoryId]);
 
   function renderItem({ item }) {
     const mealItemProps = {

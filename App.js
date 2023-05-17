@@ -68,7 +68,16 @@ export default function App() {
                 initial
                 screen
               />
-              <Stack.Screen name="MealOverView" component={MealsOverView} />
+              <Stack.Screen
+                name="MealOverView"
+                component={MealsOverView}
+                // options={({ route, navigation }) => {
+                //   const {
+                //     params: { categoryId },
+                //   } = route;
+                //   return { title: categoryId };
+                // }}
+              />
             </Stack.Group>
           </Stack.Navigator>
         </SafeAreaView>
