@@ -25,6 +25,7 @@ export default function MealsOverView({ route, navigation }) {
 
   function renderItem({ item }) {
     const mealItemProps = {
+      categoryId: item.categoryId,
       title: item.title,
       imageUrl: item.imageUrl,
       duration: item.duration,

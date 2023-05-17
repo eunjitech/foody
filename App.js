@@ -11,16 +11,19 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+// import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { CATEGORIES, MEALS } from "./data/dummy-data";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverView from "./screens/MealsOverView";
+import MealsDetailView from "./screens/MealsDetailView";
 
 export default function App() {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
 
-  const Stack = createStackNavigator();
+  // const Stack = createStackNavigator();
+  const Stack = createNativeStackNavigator();
 
   useEffect(() => {
     setStatusBarHeight(Constants.statusBarHeight);
@@ -39,46 +42,32 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-
       <NavigationContainer>
         <SafeAreaView style={{ flex: 1, backgroundColor: "#f1bcbe" }}>
           <Stack.Navigator
             initialRouteName="MealCategory"
             screenOptions={{
-              cardStyle: {
+              contentStyle: {
                 backgroundColor: "#e98f93",
+              },
+              headerStyle: {
+                backgroundColor: "#f1bcbe",
               },
             }}
           >
-            <Stack.Group
-              screenOptions={{
-                headerStyle: { backgroundColor: "#f1bcbe" },
+            <Stack.Screen
+              name="MealCategory"
+              component={CategoriesScreen}
+              options={{
+                title: "All Categories",
+                headerTintColor: "#222",
+                // headerBackTitle: "All Categories", not working
               }}
-            >
-              <Stack.Screen
-                name="MealCategory"
-                component={CategoriesScreen}
-                options={{
-                  title: "All Categories",
-                  headerTintColor: "#222",
-                  cardStyle: {
-                    backgroundColor: "#e98f93",
-                  },
-                }}
-                initial
-                screen
-              />
-              <Stack.Screen
-                name="MealOverView"
-                component={MealsOverView}
-                // options={({ route, navigation }) => {
-                //   const {
-                //     params: { categoryId },
-                //   } = route;
-                //   return { title: categoryId };
-                // }}
-              />
-            </Stack.Group>
+              initial
+              screen
+            />
+            <Stack.Screen name="MealOverView" component={MealsOverView} />
+            <Stack.Screen name="MealDetailView" component={MealsDetailView} />
           </Stack.Navigator>
         </SafeAreaView>
       </NavigationContainer>
