@@ -41,15 +41,35 @@ export default function App() {
       <StatusBar style="auto" />
 
       <NavigationContainer>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Stack.Navigator initialRouteName="MealCategory">
-            <Stack.Screen
-              name="MealCategory"
-              component={CategoriesScreen}
-              initial
-              screen
-            />
-            <Stack.Screen name="MealOverView" component={MealsOverView} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#f1bcbe" }}>
+          <Stack.Navigator
+            initialRouteName="MealCategory"
+            screenOptions={{
+              cardStyle: {
+                backgroundColor: "#e98f93",
+              },
+            }}
+          >
+            <Stack.Group
+              screenOptions={{
+                headerStyle: { backgroundColor: "#f1bcbe" },
+              }}
+            >
+              <Stack.Screen
+                name="MealCategory"
+                component={CategoriesScreen}
+                options={{
+                  title: "All Categories",
+                  headerTintColor: "#222",
+                  cardStyle: {
+                    backgroundColor: "#e98f93",
+                  },
+                }}
+                initial
+                screen
+              />
+              <Stack.Screen name="MealOverView" component={MealsOverView} />
+            </Stack.Group>
           </Stack.Navigator>
         </SafeAreaView>
       </NavigationContainer>
