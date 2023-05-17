@@ -21,6 +21,7 @@ import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverView from "./screens/MealsOverView";
 import MealsDetailView from "./screens/MealsDetailView";
 import FavoriteScreen from "./screens/FavoriteScreen";
+import FavoritesContextProvider from "./store/context/favorites-context";
 
 export default function App() {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
@@ -73,35 +74,38 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <NavigationContainer>
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#f1bcbe" }}>
-          <Stack.Navigator
-            initialRouteName="MealCategory"
-            screenOptions={{
-              contentStyle: {
-                backgroundColor: "#e98f93",
-              },
-              headerStyle: {
-                backgroundColor: "#f1bcbe",
-              },
-            }}
-          >
-            <Stack.Screen
-              name="MealCategory"
-              component={DrawerNavigator}
-              options={{
-                headerTintColor: "#222",
-                headerShown: false,
-                // headerBackTitle: "All Categories", not working
+      <FavoritesContextProvider>
+        <NavigationContainer>
+          <SafeAreaView style={{ flex: 1, backgroundColor: "#f1bcbe" }}>
+            <Stack.Navigator
+              initialRouteName="MealCategory"
+              screenOptions={{
+                contentStyle: {
+                  backgroundColor: "#e98f93",
+                },
+                headerStyle: {
+                  backgroundColor: "#f1bcbe",
+                },
+                headerBackTitle: "Custom Back Title",
               }}
-              initial
-              screen
-            />
-            <Stack.Screen name="MealOverView" component={MealsOverView} />
-            <Stack.Screen name="MealDetailView" component={MealsDetailView} />
-          </Stack.Navigator>
-        </SafeAreaView>
-      </NavigationContainer>
+            >
+              <Stack.Screen
+                name="MealCategory"
+                component={DrawerNavigator}
+                options={{
+                  headerTintColor: "#222",
+                  headerShown: false,
+                  // headerBackTitle: "All Categories", not working
+                }}
+                initial
+                screen
+              />
+              <Stack.Screen name="MealOverView" component={MealsOverView} />
+              <Stack.Screen name="MealDetailView" component={MealsDetailView} />
+            </Stack.Navigator>
+          </SafeAreaView>
+        </NavigationContainer>
+      </FavoritesContextProvider>
     </>
   );
 }
